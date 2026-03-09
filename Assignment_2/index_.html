@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VELOUR — Luxury Fashion</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0A0A;
+  --cream: #FAF7F2;
+  --gold: #C4A96B;
+  --warm: #E8DDD0;
+  --mid: #7A7062;
+  --light: #F2EDE6;
+  --card-r: 4px;
+  --shadow: 0 4px 40px rgba(10,10,10,0.1);
+  --shadow-deep: 0 16px 60px rgba(10,10,10,0.18);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Jost',sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden; }
+h1,h2,h3,h4 { font-family:'Cormorant Garamond',serif; font-weight:600; }
+.page { display:none; min-height:100vh; }
+.page.active { display:block; }
+
+/* ── NAVBAR ── */
+nav {
+position:sticky; top:0; z-index:200;
+background:var(--ink); padding:0 64px;
+display:flex; align-items:center; justify-content:space-between;
+height:68px; border-bottom:1px solid rgba(196,169,107,.2);
+}
+.nav-logo {
+font-family:'Cormorant Garamond',serif; font-weight:700;
+font-size:28px; color:var(--cream); letter-spacing:6px;
+text-transform:uppercase; cursor:pointer;
+}
+.nav-logo span { color:var(--gold); }
+.nav-links { display:flex; gap:0; align-items:center; }
+.nav-links a {
+color:rgba(250,247,242,.65); font-size:12px; font-weight:500;
+letter-spacing:2px; text-transform:uppercase; padding:10px 16px;
+cursor:pointer; text-decoration:none; transition:color .2s; white-space:nowrap;
+}
+.nav-links a:hover, .nav-links a.active { color:var(--gold); }
+.nav-right { display:flex; align-items:center; gap:20px; }
+.nav-icon { color:rgba(250,247,242,.7); font-size:18px; cursor:pointer; transition:color .2s; }
+.nav-icon:hover { color:var(--gold); }
+.cart-badge { position:relative; }
+.cart-count { position:absolute; top:-6px; right:-6px; background:var(--gold); color:var(--ink); font-size:9px; font-weight:700; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+
+/* ── BUTTONS ── */
+.btn-gold {
+background:var(--gold); color:var(--ink); border:none;
+padding:14px 36px; font-family:'Jost',sans-serif; font-size:12px;
+font-weight:600; letter-spacing:3px; text-transform:uppercase;
+cursor:pointer; transition:all .25s; display:inline-block;
+}
+.btn-gold:hover { background:#b8973a; transform:translateY(-1px); box-shadow:0 8px 24px rgba(196,169,107,.3); }
+.btn-outline-light {
+background:transparent; color:var(--cream); border:1px solid rgba(250,247,242,.5);
+padding:13px 34px; font-family:'Jost',sans-serif; font-size:12px;
+font-weight:500; letter-spacing:3px; text-transform:uppercase;
+cursor:pointer; transition:all .25s; display:inline-block;
+}
+.btn-outline-light:hover { border-color:var(--gold); color:var(--gold); }
+.btn-outline-dark {
+background:transparent; color:var(--ink); border:1.5px solid var(--ink);
+padding:13px 34px; font-family:'Jost',sans-serif; font-size:12px;
+font-weight:500; letter-spacing:3px; text-transform:uppercase;
+cursor:pointer; transition:all .25s; display:inline-block;
+}
+.btn-outline-dark:hover { background:var(--ink); color:var(--cream); }
+.btn-ink {
+background:var(--ink); color:var(--cream); border:none;
+padding:14px 36px; font-family:'Jost',sans-serif; font-size:12px;
+font-weight:600; letter-spacing:3px; text-transform:uppercase;
+cursor:pointer; transition:all .25s; display:inline-block;
+}
+.btn-ink:hover { background:#222; transform:translateY(-1px); }
+
+/* ── SECTION ── */
+.section { padding:96px 64px; }
+.section-light { background:var(--light); }
+.section-dark { background:var(--ink); color:var(--cream); }
+.section-warm { background:var(--warm); }
+.label {
+font-family:'Jost',sans-serif; font-size:11px; font-weight:500;
+letter-spacing:4px; text-transform:uppercase; color:var(--gold);
+margin-bottom:16px; display:block;
+}
+.label-light { color:rgba(196,169,107,.8); }
+.section-title { font-size:52px; line-height:1.1; margin-bottom:20px; }
+.section-sub { font-size:16px; color:var(--mid); line-height:1.8; max-width:560px; font-weight:300; }
+.section-sub-light { color:rgba(250,247,242,.6); }
+.divider { width:40px; height:1px; background:var(--gold); margin:20px 0; }
+
+/* ── HERO ── */
+.hero { position:relative; height:92vh; min-height:640px; display:flex; align-items:flex-end; overflow:hidden; }
+.hero-bg { position:absolute; inset:0; background-size:cover; background-position:center top; }
+.hero-grad { position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,10,.9) 0%, rgba(10,10,10,.3) 50%, transparent 100%); }
+.hero-content { position:relative; z-index:2; padding:0 80px 80px; max-width:800px; }
+.hero-eyebrow { font-family:'Jost',sans-serif; font-size:11px; font-weight:500; letter-spacing:5px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; display:block; }
+.hero-title { font-size:80px; color:var(--cream); line-height:1.0; margin-bottom:24px; font-weight:300; }
+.hero-title em { font-style:italic; color:var(--gold); }
+.hero-sub { font-size:17px; color:rgba(250,247,242,.75); line-height:1.7; margin-bottom:40px; max-width:480px; font-weight:300; }
+.hero-btns { display:flex; gap:16px; }
+
+/* ── PRODUCT CARDS ── */
+.products-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:48px; }
+.products-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:48px; }
+.product-card { background:#fff; cursor:pointer; transition:transform .3s; position:relative; overflow:hidden; }
+.product-card:hover { transform:translateY(-4px); }
+.product-card:hover .product-img img { transform:scale(1.07); }
+.product-img { aspect-ratio:3/4; overflow:hidden; position:relative; background:var(--warm); }
+.product-img img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.product-tag { position:absolute; top:16px; left:16px; background:var(--gold); color:var(--ink); font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:4px 10px; }
+.product-tag-sale { background:var(--ink); color:var(--cream); }
+.product-wishlist { position:absolute; top:14px; right:14px; width:34px; height:34px; background:rgba(250,247,242,.9); border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; opacity:0; transition:opacity .2s; }
+.product-card:hover .product-wishlist { opacity:1; }
+.product-info { padding:20px 16px; }
+.product-brand { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--mid); margin-bottom:6px; }
+.product-name { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; margin-bottom:8px; line-height:1.2; }
+.product-price { font-size:15px; font-weight:500; color:var(--ink); }
+.product-price s { color:var(--mid); font-weight:300; margin-right:8px; }
+.product-price .sale { color:#c0392b; }
+.product-sizes { display:flex; gap:6px; margin-top:10px; }
+.size-dot { width:28px; height:28px; border:1px solid var(--warm); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:500; cursor:pointer; transition:all .15s; }
+.size-dot:hover { border-color:var(--ink); background:var(--ink); color:var(--cream); }
+
+/* ── CATEGORY CARDS ── */
+.cat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin-top:48px; }
+.cat-card { position:relative; aspect-ratio:4/5; overflow:hidden; cursor:pointer; }
+.cat-card img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+.cat-card:hover img { transform:scale(1.06); }
+.cat-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,10,.75) 0%, transparent 60%); transition:opacity .3s; }
+.cat-card:hover .cat-overlay { opacity:.85; }
+.cat-info { position:absolute; bottom:28px; left:28px; color:var(--cream); }
+.cat-info span { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:6px; }
+.cat-info h3 { font-size:32px; font-weight:400; font-family:'Cormorant Garamond',serif; }
+.cat-info p { font-size:13px; color:rgba(250,247,242,.7); margin-top:4px; }
+
+/* ── FEATURES ── */
+.features-row { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:48px; border-top:1px solid rgba(10,10,10,.1); }
+.feature-item { padding:40px 32px; border-right:1px solid rgba(10,10,10,.1); text-align:center; }
+.feature-item:last-child { border-right:none; }
+.feature-icon { font-size:28px; margin-bottom:16px; }
+.feature-item h4 { font-size:16px; margin-bottom:8px; font-family:'Cormorant Garamond',serif; font-size:20px; }
+.feature-item p { font-size:13px; color:var(--mid); line-height:1.6; font-weight:300; }
+
+/* ── LOOKBOOK ── */
+.lookbook-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; margin-top:48px; }
+.look-card { position:relative; overflow:hidden; cursor:pointer; }
+.look-card img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s; }
+.look-card:hover img { transform:scale(1.04); }
+.look-card.tall { aspect-ratio:2/3; }
+.look-card.wide { aspect-ratio:16/9; }
+.look-overlay { position:absolute; inset:0; background:rgba(10,10,10,0); transition:background .3s; }
+.look-card:hover .look-overlay { background:rgba(10,10,10,.25); }
+.look-label { position:absolute; bottom:24px; left:24px; color:var(--cream); opacity:0; transition:opacity .3s; }
+.look-card:hover .look-label { opacity:1; }
+.look-label span { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); display:block; }
+.look-label h4 { font-family:'Cormorant Garamond',serif; font-size:24px; margin-top:4px; }
+
+/* ── TESTIMONIALS ── */
+.testimonial-card { background:var(--cream); padding:40px; border-left:2px solid var(--gold); }
+.testimonial-text { font-family:'Cormorant Garamond',serif; font-size:22px; font-style:italic; line-height:1.6; color:var(--ink); margin-bottom:24px; font-weight:400; }
+.testimonial-author { display:flex; align-items:center; gap:14px; }
+.t-avatar { width:44px; height:44px; border-radius:50%; object-fit:cover; filter:grayscale(30%); }
+.t-name { font-size:13px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+.t-role { font-size:12px; color:var(--mid); margin-top:2px; }
+.stars { color:var(--gold); font-size:14px; margin-bottom:16px; letter-spacing:2px; }
+
+/* ── FOOTER ── */
+footer { background:var(--ink); color:var(--cream); padding:80px 64px 32px; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:64px; border-bottom:1px solid rgba(250,247,242,.08); }
+.footer-logo { font-family:'Cormorant Garamond',serif; font-weight:700; font-size:32px; color:var(--cream); letter-spacing:6px; text-transform:uppercase; margin-bottom:20px; }
+.footer-logo span { color:var(--gold); }
+.footer-desc { font-size:14px; color:rgba(250,247,242,.45); line-height:1.8; font-weight:300; }
+.footer-social { display:flex; gap:16px; margin-top:28px; }
+.social-btn { width:38px; height:38px; border:1px solid rgba(250,247,242,.15); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; transition:border-color .2s; }
+.social-btn:hover { border-color:var(--gold); }
+footer h5 { font-family:'Jost',sans-serif; font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:24px; }
+footer ul { list-style:none; }
+footer ul li { margin-bottom:12px; }
+footer ul li a { color:rgba(250,247,242,.5); font-size:14px; font-weight:300; cursor:pointer; text-decoration:none; transition:color .2s; }
+footer ul li a:hover { color:var(--cream); }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; padding-top:28px; }
+.footer-bottom p { font-size:12px; color:rgba(250,247,242,.25); letter-spacing:1px; }
+
+/* ── FORMS ── */
+.form-group { margin-bottom:22px; }
+.form-label { display:block; font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; color:var(--ink); }
+.form-label-light { color:rgba(250,247,242,.7); }
+.form-input { width:100%; padding:13px 16px; border:1px solid rgba(10,10,10,.15); background:transparent; font-size:14px; font-family:'Jost',sans-serif; color:var(--ink); transition:border-color .2s; outline:none; border-radius:0; }
+.form-input:focus { border-color:var(--gold); }
+.form-input-dark { border-color:rgba(250,247,242,.15); color:var(--cream); background:rgba(250,247,242,.03); }
+.form-input-dark:focus { border-color:var(--gold); }
+.form-input-dark::placeholder { color:rgba(250,247,242,.3); }
+.form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+/* ── PRODUCT DETAIL ── */
+.pd-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:80vh; }
+.pd-images { background:var(--warm); position:relative; }
+.pd-images img { width:100%; height:100%; object-fit:cover; display:block; }
+.pd-info { padding:64px 56px; display:flex; flex-direction:column; justify-content:center; }
+.pd-brand { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.pd-title { font-size:52px; line-height:1.1; margin-bottom:8px; font-weight:400; }
+.pd-price { font-size:28px; font-weight:300; color:var(--ink); margin-bottom:28px; font-family:'Cormorant Garamond',serif; }
+.pd-divider { width:100%; height:1px; background:var(--warm); margin:28px 0; }
+.size-grid { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.size-btn { width:48px; height:48px; border:1px solid var(--warm); background:transparent; font-size:13px; font-weight:500; cursor:pointer; transition:all .15s; font-family:'Jost',sans-serif; }
+.size-btn:hover, .size-btn.active { border-color:var(--ink); background:var(--ink); color:var(--cream); }
+.color-row { display:flex; gap:10px; margin-top:12px; }
+.color-swatch { width:32px; height:32px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:border-color .15s; }
+.color-swatch.active { border-color:var(--ink); }
+
+/* ── CART / ORDER SUMMARY ── */
+.cart-item { display:flex; gap:20px; padding:24px 0; border-bottom:1px solid var(--warm); }
+.cart-item-img { width:90px; height:110px; object-fit:cover; background:var(--warm); flex-shrink:0; }
+.cart-item-info { flex:1; }
+.cart-item-name { font-family:'Cormorant Garamond',serif; font-size:20px; margin-bottom:6px; }
+.cart-item-meta { font-size:12px; color:var(--mid); letter-spacing:1px; }
+.cart-item-price { font-size:16px; font-weight:500; margin-top:8px; }
+.qty-control { display:flex; align-items:center; gap:0; margin-top:12px; border:1px solid var(--warm); width:fit-content; }
+.qty-btn { width:32px; height:32px; border:none; background:transparent; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+.qty-btn:hover { background:var(--warm); }
+.qty-val { width:40px; text-align:center; font-size:14px; font-weight:500; border:none; outline:none; background:transparent; font-family:'Jost',sans-serif; }
+
+/* ── GALLERY ── */
+.gallery-masonry { columns:4; gap:3px; margin-top:48px; }
+.gallery-item { break-inside:avoid; margin-bottom:3px; overflow:hidden; cursor:pointer; display:block; }
+.gallery-item img { width:100%; display:block; transition:transform .4s; }
+.gallery-item:hover img { transform:scale(1.05); }
+.filter-bar { display:flex; gap:0; border-bottom:1px solid rgba(10,10,10,.1); margin-bottom:0; }
+.filter-btn { padding:14px 24px; font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase; cursor:pointer; border-bottom:2px solid transparent; transition:all .2s; background:transparent; border-top:none; border-left:none; border-right:none; font-family:'Jost',sans-serif; color:var(--mid); }
+.filter-btn.active, .filter-btn:hover { color:var(--ink); border-bottom-color:var(--gold); }
+
+/* ── ABOUT ── */
+.about-split { display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:70vh; }
+.about-img { overflow:hidden; }
+.about-img img { width:100%; height:100%; object-fit:cover; display:block; }
+.about-text { padding:80px 64px; display:flex; flex-direction:column; justify-content:center; background:var(--ink); color:var(--cream); }
+
+/* ── CONTACT ── */
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+.contact-map { background:var(--warm); min-height:500px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; color:var(--mid); }
+.contact-form-area { padding:64px; }
+.store-item { display:flex; gap:20px; padding:20px 0; border-bottom:1px solid var(--warm); }
+.store-icon { width:44px; height:44px; background:var(--gold); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.store-item h4 { font-size:15px; margin-bottom:4px; font-family:'Cormorant Garamond',serif; font-size:18px; }
+.store-item p { font-size:13px; color:var(--mid); line-height:1.6; font-weight:300; }
+
+/* ── AUTH ── */
+.auth-wrap { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; }
+.auth-visual { position:relative; overflow:hidden; }
+.auth-visual img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.7); }
+.auth-visual-overlay { position:absolute; inset:0; background:linear-gradient(135deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,.2) 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:56px; }
+.auth-visual-overlay h2 { font-family:'Cormorant Garamond',serif; font-size:52px; color:var(--cream); font-weight:300; line-height:1.1; margin-bottom:16px; }
+.auth-visual-overlay p { font-size:15px; color:rgba(250,247,242,.65); font-weight:300; }
+.auth-form-area { background:var(--cream); padding:80px 72px; display:flex; flex-direction:column; justify-content:center; }
+
+/* ── BREADCRUMB ── */
+.breadcrumb { padding:16px 64px; background:var(--ink); display:flex; gap:10px; font-size:11px; letter-spacing:1px; align-items:center; }
+.breadcrumb a { color:rgba(250,247,242,.4); cursor:pointer; transition:color .2s; }
+.breadcrumb a:hover { color:var(--gold); }
+.breadcrumb span { color:rgba(250,247,242,.7); }
+.breadcrumb-sep { color:rgba(250,247,242,.2); }
+
+/* ── MARQUEE ── */
+.marquee-track { background:var(--gold); padding:14px 0; overflow:hidden; white-space:nowrap; }
+.marquee-inner { display:inline-flex; gap:0; animation:marquee 18s linear infinite; }
+.marquee-item { font-size:11px; font-weight:600; letter-spacing:4px; text-transform:uppercase; color:var(--ink); padding:0 32px; border-right:1px solid rgba(10,10,10,.15); }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── NEWSLETTER ── */
+.newsletter { background:var(--ink); padding:80px 64px; text-align:center; }
+.newsletter h2 { font-size:52px; color:var(--cream); font-weight:300; margin-bottom:12px; }
+.newsletter p { font-size:15px; color:rgba(250,247,242,.5); margin-bottom:40px; font-weight:300; }
+.newsletter-form { display:flex; gap:0; max-width:480px; margin:0 auto; }
+.newsletter-form input { flex:1; padding:14px 20px; border:1px solid rgba(250,247,242,.15); background:rgba(250,247,242,.05); color:var(--cream); font-family:'Jost',sans-serif; font-size:14px; outline:none; border-right:none; }
+.newsletter-form input::placeholder { color:rgba(250,247,242,.3); }
+.newsletter-form input:focus { border-color:var(--gold); }
+.newsletter-form button { padding:14px 28px; background:var(--gold); color:var(--ink); border:none; font-family:'Jost',sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; text-transform:uppercase; cursor:pointer; white-space:nowrap; }
+
+/* PAGE NAVIGATOR */
+#page-nav {
+position:fixed; bottom:20px; right:20px; z-index:9999;
+background:var(--ink); border:1px solid rgba(196,169,107,.2);
+padding:14px; font-family:'Jost',sans-serif;
+}
+#page-nav p { color:rgba(250,247,242,.3); font-size:9px; letter-spacing:3px; text-transform:uppercase; text-align:center; margin-bottom:8px; }
+#page-nav button {
+display:block; width:100%; background:transparent; color:rgba(250,247,242,.6);
+border:none; padding:5px 10px; cursor:pointer; font-size:11px; letter-spacing:1px;
+text-align:left; transition:color .15s; font-family:'Jost',sans-serif;
+text-transform:uppercase;
+}
+#page-nav button:hover { color:var(--gold); }
+#page-nav button.cur { color:var(--gold); }
+</style>
+
+</head>
+<body>
+
+<!-- PAGE NAVIGATOR -->
+
+<div id="page-nav">
+  <p>Pages</p>
+  <button onclick="goTo('home')" class="cur">01 Home</button>
+  <button onclick="goTo('collection')">02 Collection</button>
+  <button onclick="goTo('product')">03 Product</button>
+  <button onclick="goTo('cart')">04 Cart</button>
+  <button onclick="goTo('checkout')">05 Checkout</button>
+  <button onclick="goTo('lookbook')">06 Lookbook</button>
+  <button onclick="goTo('about')">07 About</button>
+  <button onclick="goTo('contact')">08 Contact</button>
+  <button onclick="goTo('login')">09 Login</button>
+  <button onclick="goTo('register')">10 Register</button>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 1 · HOME
+══════════════════════════ -->
+
+<div id="page-home" class="page active">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links">
+      <a onclick="goTo('home')" class="active">Home</a>
+      <a onclick="goTo('collection')">Collection</a>
+      <a onclick="goTo('lookbook')">Lookbook</a>
+      <a onclick="goTo('about')">About</a>
+      <a onclick="goTo('contact')">Contact</a>
+    </div>
+    <div class="nav-right">
+      <span class="nav-icon">🔍</span>
+      <span class="nav-icon" onclick="goTo('login')">👤</span>
+      <span class="nav-icon cart-badge" onclick="goTo('cart')">🛍 <span class="cart-count">3</span></span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+
+  <div class="hero">
+    <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1800&q=80')"></div>
+    <div class="hero-grad"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">New Collection — SS 2025</span>
+      <h1 class="hero-title">Wear the<br><em>Silence</em></h1>
+      <p class="hero-sub">Crafted for those who speak through fabric. Luxury essentials reimagined for the modern era — minimal, intentional, timeless.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="goTo('collection')">Shop Collection</button>
+        <button class="btn-outline-light" onclick="goTo('lookbook')">View Lookbook</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Marquee -->
+
+  <div class="marquee-track">
+    <div class="marquee-inner">
+      <span class="marquee-item">Free Shipping on Orders ₹5000+</span>
+      <span class="marquee-item">SS25 Collection Now Live</span>
+      <span class="marquee-item">Sustainable Fabrics</span>
+      <span class="marquee-item">New Arrivals Every Friday</span>
+      <span class="marquee-item">Easy 30-Day Returns</span>
+      <span class="marquee-item">Free Shipping on Orders ₹5000+</span>
+      <span class="marquee-item">SS25 Collection Now Live</span>
+      <span class="marquee-item">Sustainable Fabrics</span>
+      <span class="marquee-item">New Arrivals Every Friday</span>
+      <span class="marquee-item">Easy 30-Day Returns</span>
+    </div>
+  </div>
+
+  <!-- Categories -->
+
+  <div class="section">
+    <span class="label">Shop By Category</span>
+    <h2 class="section-title">Curated Collections</h2>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="goTo('collection')">
+        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80" alt="Women">
+        <div class="cat-overlay"></div>
+        <div class="cat-info"><span>Explore</span><h3>Women</h3><p>124 Pieces</p></div>
+      </div>
+      <div class="cat-card" onclick="goTo('collection')">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Men">
+        <div class="cat-overlay"></div>
+        <div class="cat-info"><span>Explore</span><h3>Men</h3><p>96 Pieces</p></div>
+      </div>
+      <div class="cat-card" onclick="goTo('collection')">
+        <img src="https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?w=600&q=80" alt="Accessories">
+        <div class="cat-overlay"></div>
+        <div class="cat-info"><span>Explore</span><h3>Accessories</h3><p>48 Pieces</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Arrivals -->
+
+  <div class="section section-light" style="padding-top:80px;padding-bottom:80px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px">
+      <div><span class="label">Just In</span><h2 class="section-title" style="margin-bottom:0">New Arrivals</h2></div>
+      <button class="btn-outline-dark" onclick="goTo('collection')">View All</button>
+    </div>
+    <div class="products-grid">
+      <div class="product-card" onclick="goTo('product')">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80" alt="Jacket"><div class="product-tag">New</div><button class="product-wishlist">♡</button></div>
+        <div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Oversized Wool Blazer</div><div class="product-price">₹12,499</div><div class="product-sizes"><div class="size-dot">XS</div><div class="size-dot">S</div><div class="size-dot">M</div><div class="size-dot">L</div></div></div>
+      </div>
+      <div class="product-card" onclick="goTo('product')">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80" alt="Dress"><div class="product-tag">New</div><button class="product-wishlist">♡</button></div>
+        <div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Silk Column Dress</div><div class="product-price">₹9,799</div><div class="product-sizes"><div class="size-dot">XS</div><div class="size-dot">S</div><div class="size-dot">M</div></div></div>
+      </div>
+      <div class="product-card" onclick="goTo('product')">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?w=500&q=80" alt="Trousers"><button class="product-wishlist">♡</button></div>
+        <div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Wide-Leg Linen Trousers</div><div class="product-price"><s>₹7,200</s> <span class="sale">₹5,499</span></div><div class="product-sizes"><div class="size-dot">S</div><div class="size-dot">M</div><div class="size-dot">L</div><div class="size-dot">XL</div></div></div>
+      </div>
+      <div class="product-card" onclick="goTo('product')">
+        <div class="product-img"><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=500&q=80" alt="Coat"><div class="product-tag">Limited</div><button class="product-wishlist">♡</button></div>
+        <div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Cashmere Maxi Coat</div><div class="product-price">₹24,999</div><div class="product-sizes"><div class="size-dot">XS</div><div class="size-dot">S</div><div class="size-dot">M</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand Statement -->
+
+  <div class="section section-dark" style="text-align:center">
+    <span class="label label-light">The Velour Philosophy</span>
+    <h2 style="font-size:60px;color:var(--cream);font-weight:300;max-width:800px;margin:0 auto 20px;line-height:1.1">"Luxury is not what you wear. It is <em style="color:var(--gold)">how</em> you wear it."</h2>
+    <div class="divider" style="margin:24px auto"></div>
+    <p class="section-sub section-sub-light" style="margin:0 auto 40px;text-align:center">We design for the pause between moments — garments that carry silence and speak without shouting. Every seam is a sentence. Every fabric, a feeling.</p>
+    <button class="btn-outline-light" onclick="goTo('about')">Our Story</button>
+  </div>
+
+  <!-- Features -->
+
+  <div class="section" style="padding-top:0;padding-bottom:0">
+    <div class="features-row">
+      <div class="feature-item"><div class="feature-icon">🪡</div><h4>Artisan Crafted</h4><p>Each piece hand-finished by master craftspeople in our Jaipur atelier</p></div>
+      <div class="feature-item"><div class="feature-icon">🌿</div><h4>Sustainably Made</h4><p>100% natural fibers and ethical supply chains from seed to garment</p></div>
+      <div class="feature-item"><div class="feature-icon">📦</div><h4>Free Delivery</h4><p>Complimentary shipping on all orders over ₹5,000 across India</p></div>
+      <div class="feature-item"><div class="feature-icon">↩️</div><h4>30-Day Returns</h4><p>Hassle-free returns and exchanges, no questions asked</p></div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+
+  <div class="section section-warm">
+    <span class="label">Client Stories</span>
+    <h2 class="section-title">Worn & Loved</h2>
+    <div class="products-grid-3">
+      <div class="testimonial-card"><div class="stars">★★★★★</div><p class="testimonial-text">"The Silk Column Dress is the most beautiful garment I have ever owned. The weight of the fabric, the way it falls — completely extraordinary."</p><div class="testimonial-author"><img class="t-avatar" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&q=80" alt=""><div><div class="t-name">Anika Sharma</div><div class="t-role">Fashion Stylist, Mumbai</div></div></div></div>
+      <div class="testimonial-card"><div class="stars">★★★★★</div><p class="testimonial-text">"I have been dressing from VELOUR for three seasons now. Nothing else compares. The cashmere coat is worth every single rupee."</p><div class="testimonial-author"><img class="t-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt=""><div><div class="t-name">Rohan Mehta</div><div class="t-role">Creative Director, Delhi</div></div></div></div>
+      <div class="testimonial-card"><div class="stars">★★★★★</div><p class="testimonial-text">"The quality is on another level. My blazer arrived in the most beautiful packaging. I felt special from the moment I opened the box."</p><div class="testimonial-author"><img class="t-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt=""><div><div class="t-name">Zara Qureshi</div><div class="t-role">Architect, Bangalore</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+
+  <div class="newsletter">
+    <span class="label label-light">Stay Connected</span>
+    <h2>Join the Circle</h2>
+    <p>Early access to new collections, styling notes, and private sale invitations.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Your email address">
+      <button>Subscribe</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div><div class="footer-logo">VEL<span>O</span>UR</div><p class="footer-desc">Luxury fashion crafted with intention. Designed in India, worn by the world.</p><div class="footer-social"><div class="social-btn">📷</div><div class="social-btn">𝕏</div><div class="social-btn">▶</div><div class="social-btn">📌</div></div></div>
+      <div><h5>Shop</h5><ul><li><a onclick="goTo('collection')">New Arrivals</a></li><li><a onclick="goTo('collection')">Women</a></li><li><a onclick="goTo('collection')">Men</a></li><li><a onclick="goTo('collection')">Accessories</a></li><li><a onclick="goTo('collection')">Sale</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a onclick="goTo('about')">Our Story</a></li><li><a onclick="goTo('lookbook')">Lookbook</a></li><li><a onclick="goTo('contact')">Contact</a></li><li><a>Sustainability</a></li><li><a>Careers</a></li></ul></div>
+      <div><h5>Support</h5><ul><li><a>Size Guide</a></li><li><a>Shipping Info</a></li><li><a>Returns</a></li><li><a>FAQs</a></li><li><a>Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 VELOUR. All rights reserved.</p><p>Made with care in India</p></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 2 · COLLECTION
+══════════════════════════ -->
+
+<div id="page-collection" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')" class="active">Collection</a><a onclick="goTo('lookbook')">Lookbook</a><a onclick="goTo('about')">About</a><a onclick="goTo('contact')">Contact</a></div>
+    <div class="nav-right"><span class="nav-icon">🔍</span><span class="nav-icon" onclick="goTo('login')">👤</span><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+
+  <div style="background:var(--ink);padding:64px;display:flex;justify-content:space-between;align-items:flex-end">
+    <div><span class="label label-light">SS 2025</span><h1 style="font-size:60px;color:var(--cream);font-weight:300">All Collections</h1></div>
+    <p style="color:rgba(250,247,242,.4);font-size:13px">268 Pieces</p>
+  </div>
+
+  <div class="section section-light" style="padding-top:40px">
+    <div style="display:flex;gap:40px;margin-bottom:48px;align-items:flex-start">
+      <!-- Filters sidebar -->
+      <div style="width:220px;flex-shrink:0">
+        <h4 style="font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;color:var(--mid)">Filter By</h4>
+        <div style="margin-bottom:28px">
+          <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:600">Category</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox" checked> Women (124)</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox"> Men (96)</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox"> Accessories (48)</label>
+          </div>
+        </div>
+        <div style="margin-bottom:28px">
+          <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:600">Price Range</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox"> Under ₹5,000</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox" checked> ₹5,000 – ₹15,000</label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer"><input type="checkbox"> ₹15,000+</label>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:600">Size</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <div class="size-btn" style="width:40px;height:40px;font-size:12px">XS</div>
+            <div class="size-btn active" style="width:40px;height:40px;font-size:12px">S</div>
+            <div class="size-btn" style="width:40px;height:40px;font-size:12px">M</div>
+            <div class="size-btn" style="width:40px;height:40px;font-size:12px">L</div>
+            <div class="size-btn" style="width:40px;height:40px;font-size:12px">XL</div>
+          </div>
+        </div>
+      </div>
+      <!-- Grid -->
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px">
+          <div class="filter-bar" style="border:none">
+            <button class="filter-btn active">All</button><button class="filter-btn">New In</button><button class="filter-btn">Sale</button><button class="filter-btn">Outerwear</button><button class="filter-btn">Dresses</button>
+          </div>
+          <select style="border:1px solid var(--warm);padding:9px 16px;font-family:'Jost',sans-serif;font-size:12px;background:transparent;cursor:pointer;letter-spacing:1px"><option>Sort: Featured</option><option>Price: Low–High</option><option>Price: High–Low</option><option>Newest</option></select>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+          <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80" alt=""><div class="product-tag">New</div><button class="product-wishlist">♡</button></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Oversized Wool Blazer</div><div class="product-price">₹12,499</div></div></div>
+          <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80" alt=""><div class="product-tag">New</div><button class="product-wishlist">♡</button></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Silk Column Dress</div><div class="product-price">₹9,799</div></div></div>
+          <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?w=500&q=80" alt=""><div class="product-tag product-tag-sale">Sale</div><button class="product-wishlist">♡</button></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Wide-Leg Linen Trousers</div><div class="product-price"><s>₹7,200</s> <span class="sale">₹5,499</span></div></div></div>
+          <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=500&q=80" alt=""><div class="product-tag">Limited</div><button class="product-wishlist">♡</button></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Cashmere Maxi Coat</div><div class="product-price">₹24,999</div></div></div>
+          <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?w=500&q=80" alt=""><button class="product-wishlist">♡</button></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Leather Envelope Bag</div><div class="product-price">₹8,999</div></div></div>
+          <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=500&q=80" alt=""><div class="product-tag">New</div><button class="product-wishlist">♡</button></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Draped Crepe Blouse</div><div class="product-price">₹6,299</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top"><div><div class="footer-logo">VEL<span>O</span>UR</div><p class="footer-desc">Luxury fashion crafted with intention.</p></div><div><h5>Shop</h5><ul><li><a onclick="goTo('collection')">New Arrivals</a></li><li><a onclick="goTo('collection')">Women</a></li><li><a onclick="goTo('collection')">Men</a></li></ul></div><div><h5>Company</h5><ul><li><a onclick="goTo('about')">Our Story</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div><h5>Support</h5><ul><li><a>Size Guide</a></li><li><a>Returns</a></li><li><a>FAQs</a></li></ul></div></div>
+    <div class="footer-bottom"><p>© 2025 VELOUR. All rights reserved.</p></div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 3 · PRODUCT DETAIL
+══════════════════════════ -->
+
+<div id="page-product" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')" class="active">Collection</a><a onclick="goTo('lookbook')">Lookbook</a><a onclick="goTo('about')">About</a><a onclick="goTo('contact')">Contact</a></div>
+    <div class="nav-right"><span class="nav-icon">🔍</span><span class="nav-icon" onclick="goTo('login')">👤</span><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+  <div class="breadcrumb"><a onclick="goTo('home')">Home</a><span class="breadcrumb-sep">›</span><a onclick="goTo('collection')">Collection</a><span class="breadcrumb-sep">›</span><span>Oversized Wool Blazer</span></div>
+
+  <div class="pd-grid">
+    <div class="pd-images" style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+      <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=80" style="width:100%;aspect-ratio:3/4;object-fit:cover" alt="Product">
+      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=700&q=80" style="width:100%;aspect-ratio:3/4;object-fit:cover" alt="Product">
+    </div>
+    <div class="pd-info">
+      <div class="pd-brand">VELOUR — SS 2025</div>
+      <h1 class="pd-title">Oversized<br>Wool Blazer</h1>
+      <div class="pd-price">₹12,499</div>
+      <p style="font-size:14px;color:var(--mid);line-height:1.8;font-weight:300;margin-bottom:20px">A masterclass in effortless tailoring. Crafted from double-faced Italian wool, this blazer drapes beautifully over any silhouette. The oversized cut is intentional — structured yet relaxed, commanding yet approachable.</p>
+
+
+  <div class="pd-divider"></div>
+
+  <div style="margin-bottom:24px">
+    <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:12px">Select Color</p>
+    <div class="color-row">
+      <div class="color-swatch active" style="background:#2C2C2C" title="Charcoal"></div>
+      <div class="color-swatch" style="background:#C8B8A2" title="Camel"></div>
+      <div class="color-swatch" style="background:#7A6652" title="Cognac"></div>
+      <div class="color-swatch" style="background:#F1EDE4" title="Ivory"></div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:32px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600">Select Size</p>
+      <a style="font-size:12px;color:var(--gold);cursor:pointer;text-decoration:underline">Size Guide</a>
+    </div>
+    <div class="size-grid">
+      <button class="size-btn">XS</button><button class="size-btn active">S</button><button class="size-btn">M</button><button class="size-btn">L</button><button class="size-btn">XL</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:12px;margin-bottom:24px">
+    <button class="btn-gold" style="flex:1;padding:16px" onclick="goTo('cart')">Add to Bag</button>
+    <button style="width:52px;height:52px;border:1.5px solid var(--ink);background:transparent;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center">♡</button>
+  </div>
+
+  <div class="pd-divider"></div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <details style="border-bottom:1px solid var(--warm);padding-bottom:12px">
+      <summary style="font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:4px 0;list-style:none;display:flex;justify-content:space-between">Details & Care <span>+</span></summary>
+      <p style="font-size:13px;color:var(--mid);line-height:1.8;margin-top:12px;font-weight:300">100% Double-Faced Italian Wool. Dry clean only. Fully lined in cupro. 2 side pockets. Single button closure.</p>
+    </details>
+    <details style="border-bottom:1px solid var(--warm);padding-bottom:12px">
+      <summary style="font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:4px 0;list-style:none;display:flex;justify-content:space-between">Shipping & Returns <span>+</span></summary>
+      <p style="font-size:13px;color:var(--mid);line-height:1.8;margin-top:12px;font-weight:300">Free shipping on orders over ₹5,000. Delivered in 3–5 business days. Free returns within 30 days.</p>
+    </details>
+  </div>
+</div>
+
+
+  </div>
+
+  <div class="section section-light" style="padding-top:80px;padding-bottom:80px">
+    <span class="label">You May Also Like</span>
+    <div class="products-grid">
+      <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80" alt=""></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Silk Column Dress</div><div class="product-price">₹9,799</div></div></div>
+      <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=500&q=80" alt=""></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Cashmere Maxi Coat</div><div class="product-price">₹24,999</div></div></div>
+      <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?w=500&q=80" alt=""></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Wide-Leg Linen Trousers</div><div class="product-price">₹5,499</div></div></div>
+      <div class="product-card" onclick="goTo('product')"><div class="product-img"><img src="https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?w=500&q=80" alt=""></div><div class="product-info"><div class="product-brand">VELOUR</div><div class="product-name">Leather Envelope Bag</div><div class="product-price">₹8,999</div></div></div>
+    </div>
+  </div>
+
+  <footer><div class="footer-top"><div><div class="footer-logo">VEL<span>O</span>UR</div><p class="footer-desc">Luxury fashion crafted with intention.</p></div><div><h5>Shop</h5><ul><li><a onclick="goTo('collection')">New Arrivals</a></li><li><a onclick="goTo('collection')">Women</a></li><li><a onclick="goTo('collection')">Men</a></li></ul></div><div><h5>Company</h5><ul><li><a onclick="goTo('about')">Our Story</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div><h5>Support</h5><ul><li><a>Size Guide</a></li><li><a>Returns</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 VELOUR. All rights reserved.</p></div></footer>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 4 · CART
+══════════════════════════ -->
+
+<div id="page-cart" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')">Collection</a><a onclick="goTo('lookbook')">Lookbook</a><a onclick="goTo('about')">About</a><a onclick="goTo('contact')">Contact</a></div>
+    <div class="nav-right"><span class="nav-icon">🔍</span><span class="nav-icon" onclick="goTo('login')">👤</span><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+
+  <div style="padding:64px;max-width:1200px;margin:0 auto">
+    <span class="label">Your Selection</span>
+    <h1 style="font-size:52px;font-weight:300;margin-bottom:48px">Shopping Bag (3)</h1>
+
+
+<div style="display:grid;grid-template-columns:1fr 380px;gap:48px;align-items:start">
+  <div>
+    <div class="cart-item">
+      <img class="cart-item-img" src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=200&q=80" alt="">
+      <div class="cart-item-info">
+        <div class="cart-item-name">Oversized Wool Blazer</div>
+        <div class="cart-item-meta">Size: S &nbsp;·&nbsp; Colour: Charcoal</div>
+        <div class="cart-item-price">₹12,499</div>
+        <div class="qty-control"><button class="qty-btn">−</button><input class="qty-val" type="text" value="1" readonly><button class="qty-btn">+</button></div>
+      </div>
+      <div style="text-align:right;font-size:20px;cursor:pointer;color:var(--mid)">×</div>
+    </div>
+    <div class="cart-item">
+      <img class="cart-item-img" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=200&q=80" alt="">
+      <div class="cart-item-info">
+        <div class="cart-item-name">Silk Column Dress</div>
+        <div class="cart-item-meta">Size: XS &nbsp;·&nbsp; Colour: Ivory</div>
+        <div class="cart-item-price">₹9,799</div>
+        <div class="qty-control"><button class="qty-btn">−</button><input class="qty-val" type="text" value="1" readonly><button class="qty-btn">+</button></div>
+      </div>
+      <div style="text-align:right;font-size:20px;cursor:pointer;color:var(--mid)">×</div>
+    </div>
+    <div class="cart-item">
+      <img class="cart-item-img" src="https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?w=200&q=80" alt="">
+      <div class="cart-item-info">
+        <div class="cart-item-name">Leather Envelope Bag</div>
+        <div class="cart-item-meta">Colour: Cognac</div>
+        <div class="cart-item-price">₹8,999</div>
+        <div class="qty-control"><button class="qty-btn">−</button><input class="qty-val" type="text" value="1" readonly><button class="qty-btn">+</button></div>
+      </div>
+      <div style="text-align:right;font-size:20px;cursor:pointer;color:var(--mid)">×</div>
+    </div>
+  </div>
+
+  <div style="background:var(--light);padding:36px;position:sticky;top:90px">
+    <h3 style="font-size:24px;margin-bottom:24px">Order Summary</h3>
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--warm);font-size:14px"><span style="color:var(--mid)">Subtotal (3 items)</span><span>₹31,297</span></div>
+    <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--warm);font-size:14px"><span style="color:var(--mid)">Shipping</span><span style="color:var(--gold)">Free</span></div>
+    <div style="display:flex;justify-content:space-between;padding:16px 0;font-size:18px;font-weight:600;font-family:'Cormorant Garamond',serif"><span>Total</span><span>₹31,297</span></div>
+    <div style="margin-bottom:16px"><input class="form-input" placeholder="Promo code" style="border-color:var(--warm)"></div>
+    <button class="btn-gold" style="width:100%;padding:16px" onclick="goTo('checkout')">Proceed to Checkout</button>
+    <button class="btn-outline-dark" style="width:100%;padding:14px;margin-top:12px" onclick="goTo('collection')">Continue Shopping</button>
+  </div>
+</div>
+
+
+  </div>
+
+  <footer><div class="footer-top"><div><div class="footer-logo">VEL<span>O</span>UR</div><p class="footer-desc">Luxury fashion crafted with intention.</p></div><div><h5>Shop</h5><ul><li><a onclick="goTo('collection')">New Arrivals</a></li></ul></div><div><h5>Support</h5><ul><li><a>Returns</a></li><li><a>FAQs</a></li></ul></div><div><h5>Contact</h5><ul><li><a onclick="goTo('contact')">Get in Touch</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 VELOUR. All rights reserved.</p></div></footer>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 5 · CHECKOUT
+══════════════════════════ -->
+
+<div id="page-checkout" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')">Collection</a></div>
+    <div class="nav-right"><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+
+  <div style="padding:64px;max-width:1200px;margin:0 auto">
+    <span class="label">Secure Checkout</span>
+    <h1 style="font-size:48px;font-weight:300;margin-bottom:48px">Complete Your Order</h1>
+
+
+<div style="display:grid;grid-template-columns:1fr 400px;gap:48px;align-items:start">
+  <div>
+    <div style="background:#fff;padding:36px;margin-bottom:24px;border:1px solid var(--warm)">
+      <h3 style="font-size:20px;margin-bottom:24px;font-family:'Cormorant Garamond',serif">Contact Information</h3>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="Anika"></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Sharma"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@example.com"></div>
+      <div class="form-group"><label class="form-label">Phone</label><input class="form-input" placeholder="+91 98765 43210"></div>
+    </div>
+
+    <div style="background:#fff;padding:36px;margin-bottom:24px;border:1px solid var(--warm)">
+      <h3 style="font-size:20px;margin-bottom:24px;font-family:'Cormorant Garamond',serif">Shipping Address</h3>
+      <div class="form-group"><label class="form-label">Street Address</label><input class="form-input" placeholder="Building, Street"></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">City</label><input class="form-input" placeholder="Mumbai"></div>
+        <div class="form-group"><label class="form-label">PIN Code</label><input class="form-input" placeholder="400001"></div>
+      </div>
+      <div class="form-group"><label class="form-label">State</label><select class="form-input"><option>Maharashtra</option><option>Delhi</option><option>Karnataka</option><option>Gujarat</option></select></div>
+    </div>
+
+    <div style="background:#fff;padding:36px;border:1px solid var(--warm)">
+      <h3 style="font-size:20px;margin-bottom:24px;font-family:'Cormorant Garamond',serif">Payment</h3>
+      <div style="display:flex;gap:12px;margin-bottom:24px">
+        <button class="filter-btn active" style="border-top:none;border-left:none;border-right:none">Card</button>
+        <button class="filter-btn" style="border-top:none;border-left:none;border-right:none">UPI</button>
+        <button class="filter-btn" style="border-top:none;border-left:none;border-right:none">Net Banking</button>
+      </div>
+      <div class="form-group"><label class="form-label">Card Number</label><input class="form-input" placeholder="1234  5678  9012  3456"></div>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">Expiry Date</label><input class="form-input" placeholder="MM / YY"></div>
+        <div class="form-group"><label class="form-label">CVV</label><input class="form-input" placeholder="•••"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:sticky;top:90px">
+    <div style="background:var(--ink);color:var(--cream);padding:36px;margin-bottom:16px">
+      <h3 style="font-size:22px;margin-bottom:24px;font-family:'Cormorant Garamond',serif">Order Summary</h3>
+      <div style="display:flex;gap:12px;margin-bottom:16px"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=100&q=80" style="width:56px;height:68px;object-fit:cover;flex-shrink:0"><div><p style="font-size:13px;font-weight:500">Oversized Wool Blazer</p><p style="font-size:12px;color:rgba(250,247,242,.5)">S · Charcoal</p><p style="font-size:14px;margin-top:4px">₹12,499</p></div></div>
+      <div style="display:flex;gap:12px;margin-bottom:16px"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=100&q=80" style="width:56px;height:68px;object-fit:cover;flex-shrink:0"><div><p style="font-size:13px;font-weight:500">Silk Column Dress</p><p style="font-size:12px;color:rgba(250,247,242,.5)">XS · Ivory</p><p style="font-size:14px;margin-top:4px">₹9,799</p></div></div>
+      <div style="display:flex;gap:12px;margin-bottom:28px"><img src="https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?w=100&q=80" style="width:56px;height:68px;object-fit:cover;flex-shrink:0"><div><p style="font-size:13px;font-weight:500">Leather Envelope Bag</p><p style="font-size:12px;color:rgba(250,247,242,.5)">Cognac</p><p style="font-size:14px;margin-top:4px">₹8,999</p></div></div>
+      <div style="border-top:1px solid rgba(250,247,242,.1);padding-top:20px">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;color:rgba(250,247,242,.6)"><span>Subtotal</span><span>₹31,297</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:16px;color:rgba(250,247,242,.6)"><span>Shipping</span><span style="color:var(--gold)">Free</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:20px;font-family:'Cormorant Garamond',serif"><span>Total</span><span>₹31,297</span></div>
+      </div>
+    </div>
+    <button class="btn-gold" style="width:100%;padding:17px;font-size:13px" onclick="alert('Order placed successfully! You will receive a confirmation email shortly.')">Place Order →</button>
+  </div>
+</div>
+
+
+  </div>
+
+  <footer><div class="footer-top"><div><div class="footer-logo">VEL<span>O</span>UR</div><p class="footer-desc">Luxury fashion crafted with intention.</p></div><div><h5>Shop</h5><ul><li><a onclick="goTo('collection')">New Arrivals</a></li></ul></div><div><h5>Support</h5><ul><li><a>Returns</a></li><li><a>FAQs</a></li></ul></div><div><h5>Contact</h5><ul><li><a onclick="goTo('contact')">Get in Touch</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 VELOUR. All rights reserved.</p></div></footer>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 6 · LOOKBOOK
+══════════════════════════ -->
+
+<div id="page-lookbook" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')">Collection</a><a onclick="goTo('lookbook')" class="active">Lookbook</a><a onclick="goTo('about')">About</a><a onclick="goTo('contact')">Contact</a></div>
+    <div class="nav-right"><span class="nav-icon">🔍</span><span class="nav-icon" onclick="goTo('login')">👤</span><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+
+  <div style="background:var(--ink);padding:80px 64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+    <div><span class="label label-light">Editorial</span><h1 style="font-size:72px;color:var(--cream);font-weight:300;line-height:1.0">The SS25<br><em style="color:var(--gold)">Lookbook</em></h1><p style="font-size:16px;color:rgba(250,247,242,.55);line-height:1.8;margin-top:20px;font-weight:300">A visual exploration of the season. Each look tells a story of quiet confidence, crafted in morning light and the stillness of empty rooms.</p></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">
+      <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block">
+      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&q=80" style="width:100%;aspect-ratio:3/4;object-fit:cover;display:block;margin-top:40px">
+    </div>
+  </div>
+
+  <div class="gallery-masonry" style="padding:48px 64px 0">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80" alt="Look 1"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Look 2"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80" alt="Look 3"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?w=600&q=80" alt="Look 4"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=600&q=80" alt="Look 5"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?w=600&q=80" alt="Look 6"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80" alt="Look 7"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Look 8"></div>
+  </div>
+
+  <div style="text-align:center;padding:64px"><button class="btn-ink" onclick="goTo('collection')">Shop the Collection</button></div>
+
+  <footer><div class="footer-top"><div><div class="footer-logo">VEL<span>O</span>UR</div><p class="footer-desc">Luxury fashion crafted with intention.</p></div><div><h5>Shop</h5><ul><li><a onclick="goTo('collection')">New Arrivals</a></li><li><a onclick="goTo('collection')">Women</a></li><li><a onclick="goTo('collection')">Men</a></li></ul></div><div><h5>Company</h5><ul><li><a onclick="goTo('about')">Our Story</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div><h5>Support</h5><ul><li><a>Returns</a></li><li><a>FAQs</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 VELOUR. All rights reserved.</p></div></footer>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 7 · ABOUT
+══════════════════════════ -->
+
+<div id="page-about" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')">Collection</a><a onclick="goTo('lookbook')">Lookbook</a><a onclick="goTo('about')" class="active">About</a><a onclick="goTo('contact')">Contact</a></div>
+    <div class="nav-right"><span class="nav-icon">🔍</span><span class="nav-icon" onclick="goTo('login')">👤</span><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+
+  <div class="about-split">
+    <div class="about-img"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=900&q=80" alt="About VELOUR"></div>
+    <div class="about-text">
+      <span class="label label-light">Our Story</span>
+      <h2 style="font-size:56px;color:var(--cream);font-weight:300;line-height:1.1;margin-bottom:24px">Designed in<br>Silence.<br><em style="color:var(--gold)">Worn with Intent.</em></h2>
+      <div class="divider"></div>
+      <p style="font-size:15px;color:rgba(250,247,242,.6);line-height:1.9;margin-bottom:20px;font-weight:300">VELOUR was founded in 2018 by designer Kavya Arora in a small studio in Jaipur. What began as a quiet rebellion against fast fashion has grown into one of India's most respected luxury ready-to-wear labels.</p>
+      <p style="font-size:15px;color:rgba(250,247,242,.6);line-height:1.9;font-weight:300">Every VELOUR piece is designed to outlast a season — crafted from the finest natural fibers, assembled by artisans who have spent decades perfecting their craft.</p>
+      <div style="display:flex;gap:40px;margin-top:40px">
+        <div><strong style="font-size:36px;font-family:'Cormorant Garamond',serif;color:var(--gold)">2018</strong><p style="font-size:12px;letter-spacing:2px;color:rgba(250,247,242,.4);text-transform:uppercase;margin-top:4px">Founded</p></div>
+        <div><strong style="font-size:36px;font-family:'Cormorant Garamond',serif;color:var(--gold)">48</strong><p style="font-size:12px;letter-spacing:2px;color:rgba(250,247,242,.4);text-transform:uppercase;margin-top:4px">Artisans</p></div>
+        <div><strong style="font-size:36px;font-family:'Cormorant Garamond',serif;color:var(--gold)">6</strong><p style="font-size:12px;letter-spacing:2px;color:rgba(250,247,242,.4);text-transform:uppercase;margin-top:4px">Collections</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="text-align:center;background:var(--cream)">
+    <span class="label">Our Values</span>
+    <h2 class="section-title">Built on Craft. Guided by Conscience.</h2>
+    <div class="features-row" style="margin-top:48px">
+      <div class="feature-item" style="background:transparent;box-shadow:none"><div class="feature-icon">🪡</div><h4>Artisan Heritage</h4><p>Every stitch by the hands of skilled craftspeople in Jaipur and Lucknow</p></div>
+      <div class="feature-item" style="background:transparent;box-shadow:none"><div class="feature-icon">🌿</div><h4>Natural Only</h4><p>We use exclusively natural, ethically sourced fibers — no synthetics, ever</p></div>
+      <div class="feature-item" style="background:transparent;box-shadow:none"><div class="feature-icon">♾️</div><h4>Timeless Design</h4><p>No trends. No seasons. Just clothes that live in your wardrobe forever</p></div>
+      <div class="feature-item" style="background:transparent;box-shadow:none"><div class="feature-icon">🤝</div><h4>Fair Wages</h4><p>All artisan partners receive above-market fair wages and benefits</p></div>
+    </div>
+  </div>
+
+  <div class="section section-warm" style="padding-top:80px;padding-bottom:80px">
+    <span class="label">The Team</span>
+    <h2 class="section-title">The Hands Behind the Label</h2>
+    <div class="products-grid-3">
+      <div style="background:var(--cream);overflow:hidden"><img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&q=80" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block;filter:grayscale(20%)"><div style="padding:24px"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:4px">Kavya Arora</div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">Founder & Creative Director</div><p style="font-size:13px;color:var(--mid);margin-top:10px;line-height:1.7;font-weight:300">Trained at NID Ahmedabad, Kavya's vision drives the quiet luxury of every VELOUR piece.</p></div></div>
+      <div style="background:var(--cream);overflow:hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block;filter:grayscale(20%)"><div style="padding:24px"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:4px">Aryan Bose</div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">Head of Production</div><p style="font-size:13px;color:var(--mid);margin-top:10px;line-height:1.7;font-weight:300">With 15 years in luxury manufacturing, Aryan ensures every garment meets our exacting standards.</p></div></div>
+      <div style="background:var(--cream);overflow:hidden"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block;filter:grayscale(20%)"><div style="padding:24px"><div style="font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:4px">Leila Kapoor</div><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">Brand & Communications</div><p style="font-size:13px;color:var(--mid);margin-top:10px;line-height:1.7;font-weight:300">Leila shapes the voice and visual identity of VELOUR across all platforms.</p></div></div>
+    </div>
+  </div>
+
+  <footer><div class="footer-top"><div><div class="footer-logo">VEL<span>O</span>UR</div><p class="footer-desc">Luxury fashion crafted with intention.</p></div><div><h5>Shop</h5><ul><li><a onclick="goTo('collection')">New Arrivals</a></li><li><a onclick="goTo('collection')">Women</a></li><li><a onclick="goTo('collection')">Men</a></li></ul></div><div><h5>Company</h5><ul><li><a onclick="goTo('about')">Our Story</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div><h5>Support</h5><ul><li><a>Size Guide</a></li><li><a>Returns</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 VELOUR. All rights reserved.</p></div></footer>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 8 · CONTACT
+══════════════════════════ -->
+
+<div id="page-contact" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')">Collection</a><a onclick="goTo('lookbook')">Lookbook</a><a onclick="goTo('about')">About</a><a onclick="goTo('contact')" class="active">Contact</a></div>
+    <div class="nav-right"><span class="nav-icon">🔍</span><span class="nav-icon" onclick="goTo('login')">👤</span><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+
+  <div style="background:var(--ink);padding:64px;text-align:center">
+    <span class="label label-light">Say Hello</span>
+    <h1 style="font-size:60px;color:var(--cream);font-weight:300">Get in Touch</h1>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-map">
+      <div style="font-size:52px">📍</div>
+      <strong style="font-size:18px;font-family:'Cormorant Garamond',serif;color:var(--ink)">Jaipur Atelier</strong>
+      <p style="font-size:13px;color:var(--mid)">C-14 Tonk Road, Jaipur 302 018</p>
+    </div>
+    <div class="contact-form-area">
+      <span class="label">Write to Us</span>
+      <h2 style="font-size:36px;margin-bottom:32px;font-weight:400">We'd love to hear from you</h2>
+      <div class="form-grid-2">
+        <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="Your name"></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Your surname"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@example.com"></div>
+      <div class="form-group"><label class="form-label">Subject</label><select class="form-input"><option>Order Enquiry</option><option>Returns & Exchanges</option><option>Styling Consultation</option><option>Press & Partnerships</option><option>General Question</option></select></div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" rows="5" placeholder="Tell us what's on your mind..."></textarea></div>
+      <button class="btn-gold" onclick="alert('Message sent. We will respond within 24 hours.')">Send Message</button>
+
+
+  <div style="margin-top:48px;padding-top:40px;border-top:1px solid var(--warm);display:flex;flex-direction:column;gap:0">
+    <div class="store-item"><div class="store-icon">📞</div><div><h4>Phone</h4><p>+91 141 234 5678<br>Mon–Sat, 10AM–7PM</p></div></div>
+    <div class="store-item"><div class="store-icon">✉️</div><div><h4>Email</h4><p>hello@velour.in<br>orders@velour.in</p></div></div>
+    <div class="store-item" style="border:none"><div class="store-icon">🏪</div><div><h4>Flagship Store</h4><p>C-14 Tonk Road, Jaipur — Open daily 11AM–8PM</p></div></div>
+  </div>
+</div>
+
+
+  </div>
+
+  <footer><div class="footer-top"><div><div class="footer-logo">VEL<span>O</span>UR</div><p class="footer-desc">Luxury fashion crafted with intention.</p></div><div><h5>Shop</h5><ul><li><a onclick="goTo('collection')">New Arrivals</a></li><li><a onclick="goTo('collection')">Women</a></li></ul></div><div><h5>Company</h5><ul><li><a onclick="goTo('about')">Our Story</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div><div><h5>Support</h5><ul><li><a>Returns</a></li><li><a>FAQs</a></li></ul></div></div><div class="footer-bottom"><p>© 2025 VELOUR. All rights reserved.</p></div></footer>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 9 · LOGIN
+══════════════════════════ -->
+
+<div id="page-login" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')">Collection</a><a onclick="goTo('lookbook')">Lookbook</a><a onclick="goTo('about')">About</a></div>
+    <div class="nav-right"><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+  <div class="auth-wrap" style="min-height:calc(100vh - 68px)">
+    <div class="auth-visual">
+      <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=80" alt="">
+      <div class="auth-visual-overlay">
+        <h2>Welcome<br>Back</h2>
+        <p>Sign in to access your wardrobe, orders, and exclusive member benefits.</p>
+      </div>
+    </div>
+    <div class="auth-form-area">
+      <div style="max-width:360px;width:100%">
+        <span class="label">Sign In</span>
+        <h2 style="font-size:44px;font-weight:300;margin-bottom:8px">Hello Again</h2>
+        <p style="font-size:14px;color:var(--mid);margin-bottom:40px;font-weight:300">Don't have an account? <a onclick="goTo('register')" style="color:var(--gold);cursor:pointer">Register</a></p>
+        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="you@example.com"></div>
+        <div class="form-group"><label class="form-label" style="display:flex;justify-content:space-between">Password <a style="color:var(--gold);cursor:pointer;font-size:11px;text-transform:none;letter-spacing:0;font-weight:400">Forgot?</a></label><input class="form-input" type="password" placeholder="Enter your password"></div>
+        <div style="margin:20px 0"><label style="display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer"><input type="checkbox"> Keep me signed in</label></div>
+        <button class="btn-gold" style="width:100%;padding:16px" onclick="alert('Welcome back to VELOUR!')">Sign In →</button>
+        <div style="display:flex;align-items:center;gap:16px;margin:24px 0"><div style="flex:1;height:1px;background:var(--warm)"></div><span style="font-size:12px;color:var(--mid);letter-spacing:2px">OR</span><div style="flex:1;height:1px;background:var(--warm)"></div></div>
+        <button style="width:100%;padding:14px;border:1px solid var(--warm);background:transparent;font-family:'Jost',sans-serif;font-size:13px;cursor:pointer;letter-spacing:1px">🌐 Continue with Google</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     PAGE 10 · REGISTER
+══════════════════════════ -->
+
+<div id="page-register" class="page">
+  <nav>
+    <div class="nav-logo" onclick="goTo('home')">VEL<span>O</span>UR</div>
+    <div class="nav-links"><a onclick="goTo('home')">Home</a><a onclick="goTo('collection')">Collection</a><a onclick="goTo('lookbook')">Lookbook</a><a onclick="goTo('about')">About</a></div>
+    <div class="nav-right"><span class="nav-icon cart-badge" onclick="goTo('cart')">🛍<span class="cart-count">3</span></span></div>
+  </nav>
+  <div class="auth-wrap" style="min-height:calc(100vh - 68px)">
+    <div class="auth-form-area" style="order:1">
+      <div style="max-width:400px;width:100%">
+        <span class="label">Create Account</span>
+        <h2 style="font-size:44px;font-weight:300;margin-bottom:8px">Join VELOUR</h2>
+        <p style="font-size:14px;color:var(--mid);margin-bottom:40px;font-weight:300">Already a member? <a onclick="goTo('login')" style="color:var(--gold);cursor:pointer">Sign in</a></p>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="Your name"></div>
+          <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Surname"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="you@example.com"></div>
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" placeholder="+91 98765 43210"></div>
+        <div class="form-grid-2">
+          <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" placeholder="Min. 8 chars"></div>
+          <div class="form-group"><label class="form-label">Confirm Password</label><input class="form-input" type="password" placeholder="Repeat"></div>
+        </div>
+        <div style="margin:20px 0;display:flex;flex-direction:column;gap:12px">
+          <label style="display:flex;align-items:flex-start;gap:10px;font-size:13px;cursor:pointer;line-height:1.5"><input type="checkbox" style="margin-top:2px"> I agree to the <a style="color:var(--gold)">Terms & Privacy Policy</a></label>
+          <label style="display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer"><input type="checkbox" checked> Subscribe to early access & new arrivals</label>
+        </div>
+        <button class="btn-gold" style="width:100%;padding:16px" onclick="alert('Welcome to VELOUR! Your account has been created.')">Create Account →</button>
+      </div>
+    </div>
+    <div class="auth-visual" style="order:2">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=80" alt="">
+      <div class="auth-visual-overlay">
+        <h2>The Circle<br>Awaits</h2>
+        <p>Members receive early access to collections, private sale invitations, and free styling consultations.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const pages = ['home','collection','product','cart','checkout','lookbook','about','contact','login','register'];
+
+function goTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+  // update nav highlight
+  document.querySelectorAll('#page-nav button').forEach((b,i) => {
+    b.classList.remove('cur');
+    if(b.getAttribute('onclick') === `goTo('${page}')`) b.classList.add('cur');
+  });
+}
+
+// Size button toggle
+document.querySelectorAll('.size-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.closest('.size-grid')?.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Color swatch toggle
+document.querySelectorAll('.color-swatch').forEach(sw => {
+  sw.addEventListener('click', function() {
+    this.closest('.color-row')?.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// Filter tabs
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.closest('.filter-bar')?.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
